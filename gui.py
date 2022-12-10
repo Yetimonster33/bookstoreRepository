@@ -1,86 +1,22 @@
 import PySimpleGUI as sg
 import datetime
+import sql
 from screeninfo import get_monitors
 
-ownersU = []
-ownersP = []
-usersU = [""]
-usersP = [""]
-publishersU = []
-publishersP = []
+connection = sql.sqlFunctions()
 
-screenX = 1500
-screenY = 800
-  # for m in get_monitors():
-  #   if (m.is_primary):
-  #     screenX = m.width
-  #     screenY = m.height
+screenX = 1000
+screenY = 600
+# for m in get_monitors():
+#   if (m.is_primary):
+#     screenX = m.width
+#     screenY = m.height
 
 def main():
-  sign_in = authentication()
+  # runAuthenticationPage()
+  runSearchPage("")
 
-  layout = [[sg.Column(generateBooksPage())],
-            [sg.Button('Home'), sg.Button('Logout'), sg.Button('2', key=lambda:func("button 2")), sg.Button('3'), sg.Button('4')]]
-  window = refreshWindow(layout, True)
-  while True: 
-    event, values = window.read()
-
-    if("BOOK" in event):
-      window.close()
-      window = refreshWindow(getBookDataPage(findBook(event[4:])), True)
-
-    if(event=="Logout"):
-      window.close()
-      main()
-
-    if (event == sg.WIN_CLOSED):
-      break
-    
-    if callable(event):
-      # window.close()
-      # window = refreshWindow(event())
-      continue
-
-    if (event == 'Home'):
-      window.close()
-      window = refreshWindow([[sg.Column(generateBooksPage())]], True)
-  window.close()
-
-def refreshWindow(replacement, renderBar):
-  layout = [[sg.Column(replacement)]]
-  if(renderBar): layout.append( [sg.Button('Home'), sg.Button('Logout'), sg.Button('2', key=lambda:func("button 2")), sg.Button('3'), sg.Button('4')])
-  return sg.Window("Window", layout = layout, size = (screenX, screenY))          
-
-def getBookDataPage(book):
-  return [[sg.Text("ISBN: "), sg.Push(), sg.Text(book[0], size=(85,1))], [sg.Text("Title: "), sg.Push(), sg.Text(book[1], size=(85,1))], [sg.Text("Price: "), sg.Push(), sg.Text(f'${book[2]:.2f}', size=(85,1))], [sg.Text("Publication Date: "), sg.Push(), sg.Text(str(book[3].year) + "-" + str(book[3].month) + "-" + str(book[3].day), size=(85,1))], [sg.Text("Genre: "), sg.Push(), sg.Text(book[4], size=(85,1))], [sg.Text("Author: "), sg.Push(), sg.Text(book[5], size=(85,1))], [sg.Text("Publisher: "), sg.Push(), sg.Text(book[6], size=(85,1))], [sg.Text("Description: "), sg.Push(), sg.Multiline(book[7], size=(95,15))]]
-
-def generateBooksPage():
-  book1 = ["ISBN", "BOOK 1", 25.5, datetime.datetime(2022, 12, 8), "genre", "author", "publisher", "THIS IS A description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description"]
-  book2 = ["ISBN", "BOOK 2", 25.5, datetime.datetime(2022, 12, 8), "genre", "author", "publisher","Description"]
-  book3 = ["ISBN", "BOOK 3", 25.5, datetime.datetime(2022, 12, 8), "genre", "author", "publisher","Description"]
-  book4 = ["ISBN", "BOOK 4", 25.5, datetime.datetime(2022, 12, 8), "genre", "author", "publisher","Description"]
-  books=[book1, book3, book2, book4]
-
-  booksPage = []
-  for i in books:
-    booksPage.append([sg.Button(f'{i[1]}', key="BOOK"+f'{i[1]}')])
-  return booksPage
-
-def findBook(book):
-  # eventually found with SQL
-  book1 = ["ISBN", "BOOK 1", 25.5, datetime.datetime(2022, 12, 8), "genre", "author", "publisher", "THIS IS A description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description description"]
-  book2 = ["ISBN", "BOOK 2", 25.5, datetime.datetime(2022, 12, 8), "genre", "author", "publisher","Description"]
-  book3 = ["ISBN", "BOOK 3", 25.5, datetime.datetime(2022, 12, 8), "genre", "author", "publisher","Description"]
-  book4 = ["ISBN", "BOOK 4", 25.5, datetime.datetime(2022, 12, 8), "genre", "author", "publisher","Description"]
-  books=[book1, book3, book2, book4]
-  for i in books:
-    if(i[1] == book):
-      return i
-
-def func(message="default"):
-  print(message)
-
-def authentication():
+def runAuthenticationPage():
   window = refreshWindow([[sg.Text("Username: "), sg.Input("", key="UserName"), sg.Text("Password: "), sg.Input("", key="Password")],
                           [sg.Text("Sign In As: "), sg.Button("User", key="UserSignIn", size = (40,1)), sg.Push(), sg.Button("Owner", "OwnerSignIn"), sg.Push(), sg.Button("Publisher", "PublisherSignIn")],
                           [sg.Button("Sign Up", key="UserSignUp", size = (100,1))]], False)
@@ -108,7 +44,81 @@ def authentication():
       validateSignUp()
   window.close()
 
+def runSearchPage(search, genre):
+  layout = [[sg.Text("Search By Author, ISBN, or Title: "), sg.Push(), sg.Input("",size=(40,1), key=("-SearchBar-")), sg.Push(), sg.Button("Search: ", key=("Search"))], 
+  [sg.Column(generateBooksBySearch(search, genre),scrollable=True,vertical_scroll_only=True, size=(400, screenY/2)), sg.Push(), sg.VerticalSeparator(), 
+  sg.Column(generateRadioOptions())  ]]
+
+  window = refreshWindow(layout, True)
+  while True: 
+    event, values = window.read()
+
+    if (event == sg.WIN_CLOSED):
+      break
+
+    if("BOOK" in event):
+      page = getBookDataPage(event[4:])
+      if (page == None): continue
+      window.close()
+      window = refreshWindow(page, True)
+
+    if(event=="Logout"):
+      window.close()
+      main()
+
+    if (event == "Home"):
+      window.close()
+      runSearchPage("")
+
+    if (event == "Search"):
+      search=window["-SearchBar-"].get()
+      window.close()
+      runSearchPage(search)
+
+  window.close()
+
+def refreshWindow(replacement, renderBar):
+  layout = [[sg.Column(replacement)]]
+  if(renderBar): layout.insert(0, [sg.Button('Home'), sg.Button('Logout'), sg.Button('2', key=lambda:func("button 2")), sg.Button('3'), sg.Button('4')])
+  return sg.Window("Window", layout = layout, size = (screenX, screenY))          
+
+def getBookDataPage(isbn):
+  book = connection.getBookById(isbn)
+  if (book == [] or book == None or book[0] == None): return None
+  book=book[0]
+  if(book[3] == None): date = ""
+  else: date = str(book[3].year) + "-" + str(book[3].month) + "-" + str(book[3].day)
+  return [[sg.Text("ISBN: "), sg.Push(), sg.Text(book[0], size=(85,1))], [sg.Text("Title: "), sg.Push(), sg.Text(book[1], size=(85,1))], [sg.Text("Price: "), sg.Push(), sg.Text(f'${book[2]:.2f}', size=(85,1))], [sg.Text("Publication Date: "), sg.Push(), sg.Text(date, size=(85,1))], [sg.Text("Genre: "), sg.Push(), sg.Text(book[4], size=(85,1))], [sg.Text("Author: "), sg.Push(), sg.Text(book[5], size=(85,1))], [sg.Text("Publisher: "), sg.Push(), sg.Text(book[7], size=(85,1))], [sg.Text(book[6], size=(85,15))]]
+
+def generateBooksPage():
+  books=connection.getBooks()
+  booksPage = []
+  for i in books:
+    booksPage.append([sg.Button(f'{i[1]} by {i[5]}' , key="BOOK"+f'{i[0]}')])
+  return booksPage
+
+def generateBooksBySearch(search, genre):
+  books=connection.getBooks()
+  booksPage = []
+  if(genre == "None"):
+    for i in books:
+      if(search in i[1] or search in i[5] or search in str(i[0])):
+        booksPage.append([sg.Button(f'{i[1]} by {i[5]}' , key="BOOK"+f'{i[0]}')])
+  else: 
+    for i in books:
+      if(search in i[1] or search in i[5] or search in str(i[0]) and i[4] = genre):
+        booksPage.append([sg.Button(f'{i[1]} by {i[5]}' , key="BOOK"+f'{i[0]}')])
+  return booksPage
+
+def generateRadioOptions():
+  buttons = [[sg.Text("Search by genre: ")], [sg.Radio("None", "Genre", default="True")]]
+  genres = connection.getGenres()
+  for i in genres:
+    buttons.append([sg.Radio(i, "Genre", default="False")])
+  return buttons
+
 def validateSignIn(username, password, type):
+  return True
   u = []
   p = []
   if(type == "owner"): 
