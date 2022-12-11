@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{geometry}
+\usepackage{graphicx}
+\begin{document}
+To simplify the dependancies:\\\\
+bookstore\_attributes = owner\_fName, owner\_lName, contact\_email, url, password\\
+book\_attributes = title, price, pub\_date genre, author, description, page\_count\\
+publisher\_attributes =  account\_num, routing\_num, account\_size, email\\
+user\_attributes = fName, lName, password\\
+order\_attributes = curr\_locations, eta, order\_date\\
+billing\_attributes = card\_num, name\_on\_card, expiry\_month, expiry\_year, CVC\\
+address\_attributes = country, region, city, address, postal\_code\\\\
+Functional dependancies:\\
+Bookstore:\\ 
+bookstore\_id $\rightarrow$  bookstore\_attributes, address\_id, username\\
+username $\rightarrow$  bookstore\_attributes, address\_id, bookstore\_id\\
+The left hand side of each functional dependancy is a primary key, therefore this relation is in 3NF\\\\
+Book:\\
+ISBN $\rightarrow$  book\_attributes, publisher\_id\\
+The left hand side of the functional dependancy is a primary key, therefore this relation is in 3NF\\\\
+Publisher:\\
+publisher\_id $\rightarrow$  publisher\_attributes, address\_id, company\_name\\
+company\_name $\rightarrow$  publisher\_attributes, address\_id, publisher\_id\\
+The left hand side of the functional dependancy is a primary key, therefore this relation is in 3NF\\\\
+User:\\
+user\_id $\rightarrow$  user\_attributes, email, username\\
+email $\rightarrow$  user\_attributes, user\_id, username\\
+username $\rightarrow$  user\_attributes, email, user\_id\\
+The left hand side of the functional dependancy is a primary key, therefore this relation is in 3NF\\\\
+Order:\\
+order\_id $\rightarrow$  order\_attributes, user\_id, bookstore\_id, billing\_id, address\_id\\
+The left hand side of the functional dependancy is a primary key, therefore this relation is in 3NF\\\\
+Billing:\\
+billing\_id $\rightarrow$  billing\_attributes\\
+The left hand side of the functional dependancy is a primary key, therefore this relation is in 3NF\\\\
+Address: \\
+address\_id $\rightarrow$ country, address, postal\_code\\
+The left hand side of the functional dependancy is a primary key, therefore this relation is in 3NF\\\\
+Postal Information:\\
+ postal\_code $\rightarrow$ city, region\\
+The left hand side of the functional dependancy is a primary key, therefore this relation is in 3NF\\\\
+Book in Cart:\\
+ ISBN, cart\_id $\rightarrow$ quantity\\
+The left hand side of the functional dependancy is a primary key, therefore this relation is in 3NF\\\\
+Sells:\\
+ bookstore\_id, ISBN$\rightarrow$ stock\\
+The left hand side of the functional dependancy is a primary key, therefore this relation is in 3NF\\\\
+Owns:\\
+user\_id, ISBN $\rightarrow$ review \\
+The left hand side of the functional dependancy is a primary key, therefore this relation is in 3NF\\\\
+Book in Order:\\
+ order\_id, ISBN $\rightarrow$ quantity\\
+The left hand side of the functional dependancy is a primary key, therefore this relation is in 3NF\\\\
+Registered At:\\
+cart\_id$\rightarrow$ user\_id, bookstore\_id, billing\_id, address\_id\\
+The left hand side of the functional dependancy is a primary key, therefore this relation is in 3NF\\\\
+
+\end{document}
