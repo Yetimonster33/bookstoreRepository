@@ -14,11 +14,14 @@ class sqlFunctions():
 
     def addUser(self, fName, lName, email, username, password):
         try: 
-            self.cur.execute(f'insert into user_account (fname, lname, email, username, password) values (\'{fName}\', \'{lName}\', \'{email}\', \'{username}\',\'{password}\');')
+            print(f'{fName} {lName} {email} {username} {password}')
+            # self.cur.execute(f'insert into user_account (fname, lname, email, username, password) values (\'{fName}\', \'{lName}\', \'{email}\', \'{username}\',\'{password}\');')
             self.con.commit()
+            return True
         except Exception as e:
             print("Value not succesfully posted to database: ")
             print(e)
+            return False
 
     def usernamePasswordComboExists(self, username, password):
         self.cur.execute(f'select 1 from user_account where username = \'{username}\' and password = \'{password}\';')
@@ -32,6 +35,18 @@ class sqlFunctions():
         self.cur.execute(f'select * from book where isbn = {isbn};')
         return self.cur.fetchall()
 
+    def getPublisherById(self, id):
+        self.cur.execute(f'select * from publisher where publisher_id = {id}')
+        return self.cur.fetchall()
+
+    def getAddressById(self, id):
+        self.cur.execute(f'select * from address where address_id = {id}')
+        return self.cur.fetchall()
+
+    def getPostalById(self, id):
+        self.cur.execute(f'select * from postal where postal_code = \'{id}\'')
+        return self.cur.fetchall()
+
     def getGenres(self):
         self.cur.execute('select distinct genre from book;')
         return self.cur.fetchall()
@@ -41,7 +56,6 @@ class sqlFunctions():
         return self.cur.fetchall()
     
     def getBookstore(self, id):
-        # print(id)
         self.cur.execute(f'select * from bookstore where bookstore_id = {id}')
         return self.cur.fetchall()
 

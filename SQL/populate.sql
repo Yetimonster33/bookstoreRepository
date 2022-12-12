@@ -1,113 +1,177 @@
 --STORE ADDRESSES
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('Canada', 'Ontario', 'Ottawa', '2881 Merivale Rd.', 'K2H 5B6');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('Canada', 'Ontario', 'Kingston', '2235 Pricess St.', 'K7L 1C2');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('Canada', 'Ontario', 'Toronto', '833 Tycos Dr.', 'M5T 1T4');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('Canada', 'Quebec', 'Montreal', '2929 rue Levy', 'H3C 5K4');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('USA', 'Massachusetts', 'Boston', '1869 Pineview Dr.', '02110');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('USA', 'New York', 'New York', '1515 Mount Tabor', '10011');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('K2H 5B6', 'Ontario', 'Ottawa');
+INSERT INTO address (country, address, postal_code)
+VALUES ('Canada', '2881 Merivale Rd.', 'K2H 5B6');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('K7L 1C2', 'Ontario', 'Kingston');
+INSERT INTO address (country, address, postal_code)
+VALUES ('Canada', '2235 Pricess St.', 'K7L 1C2');
+INSERT INTO postal(postal_code, region, city)
+VALUES ( 'M5T 1T4', 'Ontario', 'Toronto');
+INSERT INTO address (country, address, postal_code)
+VALUES ('Canada', '833 Tycos Dr.', 'M5T 1T4');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('H3C 5K4', 'Quebec', 'Montreal');
+INSERT INTO address (country, address, postal_code)
+VALUES ('Canada', '2929 rue Levy', 'H3C 5K4');
+INSERT INTO postal(postal_code, region, city)
+VALUES ( '02110', 'Massachusetts', 'Boston');
+INSERT INTO address (country, address, postal_code)
+VALUES ('USA', '1869 Pineview Dr.', '02110');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('10011', 'New York', 'New York');
+INSERT INTO address (country, address, postal_code)
+VALUES ('USA', '1515 Mount Tabor', '10011');
 
 --OTTAWA ADDRESSES
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('Canada', 'Ontario', 'Ottawa', '758 Merivale Rd.', 'K2G 3K2');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('Canada', 'Ontario', 'Ottawa', '3771 MacLaren St.', 'K1P 5M7');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('Canada', 'Ontario', 'Ottawa', '549 Bank St.', 'K1H 7Z1');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('Canada', 'Ontario', 'Ottawa', '4113 Carling Ave.', 'K1Z 7B5');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('Canada', 'Ontario', 'Ottawa', '2357 Merivale Rd.', 'K2G 3K2');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('K2G 3K2', 'Ontario', 'Ottawa');
+INSERT INTO address (country, address, postal_code)
+VALUES ('Canada', '758 Merivale Rd.', 'K2G 3K2');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('K1P 5M7', 'Ontario', 'Ottawa');
+INSERT INTO address (country, address, postal_code)
+VALUES ('Canada', '3771 MacLaren St.', 'K1P 5M7');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('K1H 7Z1', 'Ontario', 'Ottawa');
+INSERT INTO address (country, address, postal_code)
+VALUES ('Canada', '549 Bank St.', 'K1H 7Z1');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('K1Z 7B5', 'Ontario', 'Ottawa');
+INSERT INTO address (country, address, postal_code)
+VALUES ('Canada', '4113 Carling Ave.', 'K1Z 7B5');
 
 --KINGSTON ADDRESSES
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('Canada', 'Ontario', 'Kingston', '1093 Ross St.', 'K7L 4V4');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('Canada', 'Ontario', 'Kingston', '4466 Princess St.', 'K7L 1C2');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('Canada', 'Ontario', 'Kingston', '94 Wright Cres.', 'K7L 5M3');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('Canada', 'Ontario', 'Kingston', '310 Bath Rd.', 'K7M 9H1');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('Canada', 'Ontario', 'Kingston', '1000 King St', 'K7M 8H3');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('K7L 4V4', 'Ontario', 'Kingston');
+INSERT INTO address (country, address, postal_code)
+VALUES ('Canada', '1093 Ross St.', 'K7L 4V4');
+INSERT INTO address (country, address, postal_code)
+VALUES ('Canada', '4466 Princess St.', 'K7L 1C2');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('K7L 5M3', 'Ontario', 'Kingston');
+INSERT INTO address (country, address, postal_code)
+VALUES ('Canada', '94 Wright Cres.', 'K7L 5M3');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('K7M 9H1', 'Ontario', 'Kingston');
+INSERT INTO address (country, address, postal_code)
+VALUES ('Canada', '310 Bath Rd.', 'K7M 9H1');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('K7M 8H3', 'Ontario', 'Kingston');
+INSERT INTO address (country, address, postal_code)
+VALUES ('Canada', '1000 King St', 'K7M 8H3');
 
 --TORONTO ADDRESSES
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('Canada', 'Ontario', 'Toronto', '474 Dupont St.', 'M5R 1W5');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('Canada', 'Ontario', 'Toronto', '880 Ellesmere Rd.', 'M1P 2L8');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('Canada', 'Ontario', 'Toronto', '2316 Yonge St.', 'M4P 1T4');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('Canada', 'Ontario', 'Toronto', '121 University Ave.', 'M5J 1T1');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('Canada', 'Ontario', 'Toronto', '1952 Weir Cres.', 'M1E 3T8');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('M5R 1W5', 'Ontario', 'Toronto');
+INSERT INTO address (country, address, postal_code)
+VALUES ('Canada', '474 Dupont St.', 'M5R 1W5');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('M1P 2L8', 'Ontario', 'Toronto');
+INSERT INTO address (country, address, postal_code)
+VALUES ('Canada', '880 Ellesmere Rd.', 'M1P 2L8');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('M4P 1T4', 'Ontario', 'Toronto');
+INSERT INTO address (country, address, postal_code)
+VALUES ('Canada', '2316 Yonge St.', 'M4P 1T4');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('M5J 1T1', 'Ontario', 'Toronto');
+INSERT INTO address (country, address, postal_code)
+VALUES ('Canada', '121 University Ave.', 'M5J 1T1');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('M1E 3T8', 'Ontario', 'Toronto');
+INSERT INTO address (country, address, postal_code)
+VALUES ('Canada', '1952 Weir Cres.', 'M1E 3T8');
 
 --MONTREAL ADDRESSES 
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('Canada', 'Quebec', 'Montreal', '2147 Papineau Ave.', 'H2K 4J5');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('Canada', 'Quebec', 'Montreal', '2950 Ste. Cathrine Ouest', 'H2A 2Z3');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('Canada', 'Quebec', 'Montreal', '2669 Duke St.', 'H3C 5K4');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('Canada', 'Quebec', 'Montreal', '856 chemin Hudson', 'H4J 1M9');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('Canada', 'Quebec', 'Montreal', '182 Scarth St.', 'S4P 3Y2');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('H2K 4J5', 'Quebec', 'Montreal');
+INSERT INTO address (country, address, postal_code)
+VALUES ('Canada', '2147 Papineau Ave.', 'H2K 4J5');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('H2A 2Z3', 'Quebec', 'Montreal');
+INSERT INTO address (country, address, postal_code)
+VALUES ('Canada', '2950 Ste. Cathrine Ouest', 'H2A 2Z3');
+INSERT INTO address (country, address, postal_code)
+VALUES ('Canada', '2669 Duke St.', 'H3C 5K4');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('H4J 1M9', 'Quebec', 'Montreal');
+INSERT INTO address (country, address, postal_code)
+VALUES ('Canada', '856 chemin Hudson', 'H4J 1M9');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('S4P 3Y2', 'Quebec', 'Montreal');
+INSERT INTO address (country, address, postal_code)
+VALUES ('Canada', '182 Scarth St.', 'S4P 3Y2');
 
 --NEW YORK ADDRESSES
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('USA', 'New York', 'New York', '3420 Angus Rd.', '10019');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('USA', 'New York', 'New York', '1732 Elm Dr.', '10011');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('USA', 'New York', 'New York', '359 Redbud Dr.', '10011');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('USA', 'New York', 'New York', '2049 Small St.', '10007');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('USA', 'New York', 'New York', '2256 Progress Way.', '10001');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('10019', 'New York', 'New York');
+INSERT INTO address (country,  address, postal_code)
+VALUES ('USA', '3420 Angus Rd.', '10019');
+INSERT INTO address (country,  address, postal_code)
+VALUES ('USA', '1732 Elm Dr.', '10011');
+INSERT INTO address (country,  address, postal_code)
+VALUES ('USA', '359 Redbud Dr.', '10011');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('10007', 'New York', 'New York');
+INSERT INTO address (country,  address, postal_code)
+VALUES ('USA', '2049 Small St.', '10007');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('10001', 'New York', 'New York');
+INSERT INTO address (country,  address, postal_code)
+VALUES ('USA', '2256 Progress Way.', '10001');
 
 --BOSTON ADDRESSES
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('USA', 'Massachusetts', 'Boston', '2725 Aspen Ct.', '02110');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('USA', 'Massachusetts', 'Boston', '2396 Eagle St.', '14025');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('USA', 'Massachusetts', 'Boston', '528 Cedar Lane', '02114');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('USA', 'Massachusetts', 'Boston', '3307 Lynn St.', '02115');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('USA', 'Massachusetts', 'Boston', '5033 Gerald L. Bates Drive', '02199');
+INSERT INTO address (country,  address, postal_code)
+VALUES ('USA', '2725 Aspen Ct.', '02110');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('14025', 'Massachusetts', 'Boston');
+INSERT INTO address (country,  address, postal_code)
+VALUES ('USA', '2396 Eagle St.', '14025');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('02114', 'Massachusetts', 'Boston');
+INSERT INTO address (country,  address, postal_code)
+VALUES ('USA', '528 Cedar Lane', '02114');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('02115', 'Massachusetts', 'Boston');
+INSERT INTO address (country,  address, postal_code)
+VALUES ('USA', '3307 Lynn St.', '02115');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('02199', 'Massachusetts', 'Boston');
+INSERT INTO address (country,  address, postal_code)
+VALUES ('USA', '5033 Gerald L. Bates Drive', '02199');
 
 --PUBLISHER ADDRESSES
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('USA', 'New York', 'New York', '1745 Broadway', '10019');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('USA', 'New York', 'New York', '195 Broadway', '10007');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('USA', 'New York', 'New York', '1290 6th Ave.', '10104');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('Canada', 'Ontario', 'Toronto', '166 King St E', 'M5A 4S4');
-INSERT INTO address (country, region, city, address, postal_code)
-VALUES ('USA', 'New York', 'New York', '120 Broadway', '10271');
+INSERT INTO address (country,  address, postal_code)
+VALUES ('USA', '1745 Broadway', '10019');
+INSERT INTO address (country,  address, postal_code)
+VALUES ('USA', '195 Broadway', '10007');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('10104', 'New York', 'New York');
+INSERT INTO address (country,  address, postal_code)
+VALUES ('USA', '1290 6th Ave.', '10104');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('M5A 4S4', 'Ontario', 'Toronto');
+INSERT INTO address (country,  address, postal_code)
+VALUES ('Canada', '166 King St E', 'M5A 4S4');
+INSERT INTO postal(postal_code, region, city)
+VALUES ('10271', 'New York', 'New York');
+INSERT INTO address (country,  address, postal_code)
+VALUES ('USA', '120 Broadway', '10271');
 
-INSERT INTO bookstore (address_id, location, owner_fName, owner_lname, contact_email, url)
-VALUES(1, 'Ottawa', 'Cleo', 'Wilkerson', 'cWilkerson0@gmail.com', 'www.LookInnaBook/Ottawa.com');
-INSERT INTO bookstore (address_id, location, owner_fName, owner_lname, contact_email, url)
-VALUES(2, 'Kingston', 'Lianna', 'Wyatt', 'lWyatt@gmail.com', 'www.LookInnaBook/Kingston.com');
-INSERT INTO bookstore (address_id, location, owner_fName, owner_lname, contact_email, url)
-VALUES(3, 'Toronto', 'Stevie', 'Boyer', 'sBoyer@gmail.com', 'www.LookInnaBook/Toronto.com');
-INSERT INTO bookstore (address_id, location, owner_fName, owner_lname, contact_email, url)
-VALUES(4, 'Montreal', 'Isaiah', 'Lewis', 'iLewis@gmail.com', 'www.LookInnaBook/Montreal.com');
-INSERT INTO bookstore (address_id, location, owner_fName, owner_lname, contact_email, url)
-VALUES(5, 'New York', 'Ammar', 'Pearson', 'aPearson@gmail.com', 'www.LookInnaBook/NewYork.com');
-INSERT INTO bookstore (address_id, location, owner_fName, owner_lname, contact_email, url)
-VALUES(6, 'Boston', 'Michaela', 'Garrison', 'mGarrison@gmail.com', 'www.LookInnaBook/Boston.com');
+INSERT INTO bookstore (address_id, owner_fName, owner_lname, contact_email, url, username, password)
+VALUES(1, 'Cleo', 'Wilkerson', 'cWilkerson0@gmail.com', 'www.LookInnaBook/Ottawa.com', 'cWilk', 'cWilk123$');
+INSERT INTO bookstore (address_id, owner_fName, owner_lname, contact_email, url, username, password)
+VALUES(2, 'Lianna', 'Wyatt', 'lWyatt@gmail.com', 'www.LookInnaBook/Kingston.com', 'lWyatt', 'lWyatt123$');
+INSERT INTO bookstore (address_id, owner_fName, owner_lname, contact_email, url, username, password)
+VALUES(3, 'Stevie', 'Boyer', 'sBoyer@gmail.com', 'www.LookInnaBook/Toronto.com', 'sBoyer', 'sBoyer123$');
+INSERT INTO bookstore (address_id, owner_fName, owner_lname, contact_email, url, username, password)
+VALUES(4, 'Isaiah', 'Lewis', 'iLewis@gmail.com', 'www.LookInnaBook/Montreal.com', 'iLewis', 'iLewis123$');
+INSERT INTO bookstore (address_id, owner_fName, owner_lname, contact_email, url, username, password)
+VALUES(5, 'Ammar', 'Pearson', 'aPearson@gmail.com', 'www.LookInnaBook/NewYork.com', 'aPearson', 'aPearson123$');
+INSERT INTO bookstore (address_id, owner_fName, owner_lname, contact_email, url, username, password)
+VALUES(6, 'Michaela', 'Garrison', 'mGarrison@gmail.com', 'www.LookInnaBook/Boston.com', 'mGarrison', 'mGarison123$');
 
 INSERT INTO billing (card_num, name_on_card, expiry_month, expiry_year, CVC)
 VALUES (1471618288356737, 'Willam Hahn', 1, 27, 877);
@@ -149,15 +213,15 @@ INSERT INTO billing (card_num, name_on_card, expiry_month, expiry_year, CVC)
 VALUES (6143352156435985, 'Danny Pearson', 11, 28, 126);
 
 INSERT INTO publisher (company_name, account_num, routing_num, account_size, email, address_id)
-VALUES ('Penguin Random House', 187198416457, 65431243, 0, 'pgh@gmail.com', 37);
+VALUES ('Penguin Random House', 187198416457, 65431243, 0, 'pgh@gmail.com', 36);
 INSERT INTO publisher (company_name, account_num, routing_num, account_size, email, address_id)
-VALUES ('Harper Collins',  342236241987, 14315654, 0, 'hc@gmail.com', 38);
+VALUES ('Harper Collins',  342236241987, 14315654, 0, 'hc@gmail.com', 37);
 INSERT INTO publisher (company_name, account_num, routing_num, account_size, email, address_id)
-VALUES ('Hachette Book Group', 34225164, 14354265, 0, 'hbg@gmail.com', 39);
+VALUES ('Hachette Book Group', 34225164, 14354265, 0, 'hbg@gmail.com', 38);
 INSERT INTO publisher (company_name, account_num, routing_num, account_size, email, address_id)
-VALUES ('Simon and Schuster', 876245435712, 14763491, 0, 'sas@gmail.com', 40);
+VALUES ('Simon and Schuster', 876245435712, 14763491, 0, 'sas@gmail.com', 39);
 INSERT INTO publisher (company_name, account_num, routing_num, account_size, email, address_id)
-VALUES ('Macmillan', 546412129573, 64517498, 0, 'm@gmail.com', 41);
+VALUES ('Macmillan', 546412129573, 64517498, 0, 'm@gmail.com', 40);
 
 INSERT INTO user_account (fName, lName, email, username, password)
 VALUES ('William', 'Hahn', 'wHahn@gmail.com', 'wHahn', 'wHahn123$');

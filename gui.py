@@ -1,9 +1,9 @@
 import PySimpleGUI as sg
-import datetime
 import sql
 from screeninfo import get_monitors
 
 connection = sql.sqlFunctions()
+curr_info = {"curr_location":"None"}
 
 screenX = 1000
 screenY = 600
@@ -13,15 +13,13 @@ for m in get_monitors():
     screenY = m.height - 100
 
 def main():
-  # print(connection.usernamePasswordComboExists('', ''))
-  # runAuthenticationPage()
-  # runSignUpPage("")
+  runAuthenticationPage()
   runSearchPage("", "None", -1)
 
 def runAuthenticationPage():
   window = refreshWindow([[sg.Text("Username: ", size=(15,1)), sg.Input("", key="UserName", size=(50,1)), sg.Text("Password: ", size=(15, 1)), sg.Input("", key="Password", size=(50,1))],
                           [sg.Text("", size=(15,1)), sg.Button("Sign in as user", key="UserSignIn", size = (49,1)), sg.Text("",size=(15,1)), sg.Button("Sign in as owner", key="OwnerSignIn", size=(49,1)), sg.Push()],
-                          [sg.Text("", size=(15,1)), sg.Button("Sign Up", key="UserSignUp", size = (119,1))]], [], -1)
+                          [sg.Text("", size=(15,1)), sg.Button("Sign Up", key="UserSignUp", size = (119,1))]], [])
 
   while True: 
     event, values = window.read()
@@ -74,10 +72,12 @@ def runSignUpPage(type):
     if(event == "ownersu"):
       window.close()
       runSignUpPage("owner")
-    if (event == "Sign Up" and type == "user "):
+    if (event == "Sign Up" and type == "user"):
+      print("Here")
       if(validatePassword(results["password1"], results["password2"]) and validateUsername(results["uname1"], results["uname2"])):
-        connection.addUser(results["fname"], results["lname"], results["email"], results["uname1"], results["password1"])
-        if(not connection.usernamePasswordComboExists(results["password1"], results["uname1"])):
+        if(connection.addUser(results["fname"], results["lname"], results["email"], results["uname1"], results["password1"])):
+          runSearchPage("", "None", -1)
+        else:
           print("Server side error or rejection of values, likely duplicate entry")
       else: 
         print("Local username and password validation failed (check that both inputs are equivelant and password > 8 character, containing a special char and capital letter)")
@@ -173,13 +173,21 @@ def getBookDataPage(isbn):
   book = connection.getBookById(isbn)
   if (book == [] or book == None or book[0] == None): return None
   book=book[0]
+  publisher = connection.getPublisherById(book[8])
+  pubText = ""
+  if (publisher != []):
+    pubText = publisher[0][1]
   if(book[3] == None): date = ""
   else: date = str(book[3].year) + "-" + str(book[3].month) + "-" + str(book[3].day)
-  return [[sg.Text("ISBN: "), sg.Push(), sg.Text(book[0], size=(85,1))], [sg.Text("Title: "), sg.Push(), sg.Text(book[1], size=(85,1))], [sg.Text("Price: "), sg.Push(), sg.Text(f'${book[2]:.2f}', size=(85,1))], [sg.Text("Publication Date: "), sg.Push(), sg.Text(date, size=(85,1))], [sg.Text("Genre: "), sg.Push(), sg.Text(book[4], size=(85,1))], [sg.Text("Author: "), sg.Push(), sg.Text(book[5], size=(85,1))], [sg.Text("Publisher: "), sg.Push(), sg.Text(book[7], size=(85,1))], [sg.Text(book[6], size=(85,15))]]
+  return [[sg.Text("ISBN: "), sg.Push(), sg.Text(book[0], size=(85,1))], [sg.Text("Title: "), sg.Push(), sg.Text(book[1], size=(85,1))],
+    [sg.Text("Price: "), sg.Push(), sg.Text(f'${book[2]:.2f}', size=(85,1))], [sg.Text("Publication Date: "), sg.Push(), sg.Text(date, size=(85,1))],
+    [sg.Text("Genre: "), sg.Push(), sg.Text(book[4], size=(85,1))], [sg.Text("Author: "), sg.Push(), sg.Text(book[5], size=(85,1))],
+    [sg.Text("Page Count: "), sg.Push(), sg.Text(book[7], size=(85,1))], [sg.Text("Publisher: "), sg.Push(), sg.Text(pubText, size=(85,1))], [sg.Text(book[6], size=(85,15))]]
 
 def generateMenuBar(bookstore):
   bookstore_info = connection.getBookstore(bookstore)
-  return [sg.Button('Home'), sg.Button('Logout'), sg.Button('Cart'), sg.Button('Order Status'), sg.Text(f'Current Location: {"None" if  bookstore_info == [] else bookstore_info[0][2]}')]
+  return [sg.Button('Home'), sg.Button('Logout'), sg.Button('Cart'), sg.Button('Order Status'),
+   sg.Text(f'Current Location: {"None" if bookstore_info == [] else getNameFromBookstore(bookstore_info[0])}')]
 
 def generateBooksPage():
   books=connection.getBooks()
@@ -208,8 +216,16 @@ def generateBookstores():
   buttons = [sg.Text("Choose a different location: "), sg.Button("All", key=f'BookstoreButtonAll')]
   bookstores = connection.getBookstores()
   for i in bookstores:
-    buttons.append(sg.Button(i[2], key=f'BookstoreButton{i[0]}'))
+    buttons.append(sg.Button(getNameFromBookstore(i), key=f'BookstoreButton{i[0]}'))
   return buttons
+
+def getNameFromBookstore(bookstore):
+    if (bookstore == []): return "None"
+    location = connection.getAddressById(bookstore[1])
+    if (location == []): return "None"
+    location = connection.getPostalById(location[0][3])
+    if (location == []): return "None"
+    return location[0][2]
 
 def validateSignIn(username, password, type):
   return True

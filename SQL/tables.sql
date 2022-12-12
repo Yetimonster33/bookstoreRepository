@@ -1,14 +1,18 @@
+--The code here creates tables for the database
+CREATE TABLE postal(
+	postal_code varchar(10),
+	region varchar(20) NOT NULL,
+	city varchar(20) NOT NULL,
+	PRIMARY KEY (postal_code)
+);
 
 CREATE TABLE address(
 	address_id SERIAL PRIMARY KEY,
 	country varchar(20) NOT NULL,
-	region varchar(20) NOT NULL,
-	city varchar(20) NOT NULL,
 	address varchar(30) NOT NULL,
-	postal_code varchar(10),
-	CONSTRAINT address_unique_in_city UNIQUE(city, address)
+	postal_code varchar(10) NOT NULL,
+	FOREIGN KEY (postal_code) REFERENCES postal(postal_code)
 );
-/* validation for country, provence, city, address, postal?*/
 CREATE TABLE bookstore(
 	bookstore_id SERIAL PRIMARY KEY,
 	address_id int UNIQUE NOT NULL,
@@ -58,10 +62,8 @@ CREATE TABLE user_account(
 	username varchar(30) UNIQUE NOT NULL,
 	password varchar(30) NOT NULL,
 	CONSTRAINT is_valid_email CHECK (email LIKE '%_@_%.__%'),
-	CONSTRAINT is_valid_password CHECK (length(password) >= 8)/* and  and password LIKE '%[0-9]%' and password LIKE '%[A-Z]%' and password LIKE '%[!@#$%^&*()~`:;?/>.<,{[}]|\%')*/
+	CONSTRAINT is_valid_password CHECK (length(password) >= 8)
 );
--- /*password must be larger than or equalt to 6 char, with at least one num, one special character and one capital letter
--- username, email must be unique*/
 
 CREATE TABLE book(
 	ISBN bigint, 
@@ -77,7 +79,6 @@ CREATE TABLE book(
 	FOREIGN KEY (publisher) REFERENCES publisher(publisher_id),
 	CONSTRAINT is_valid_isbn CHECK ((999999999 < ISBN and ISBN < 10000000000) or (999999999999 < ISBN and ISBN < 10000000000000))
 );
--- /*validate genre (categorical) maybe*/
 
 CREATE TABLE sells (
 	bookstore_id int,
@@ -96,7 +97,6 @@ CREATE TABLE owns (
 	FOREIGN KEY (ISBN) REFERENCES book(ISBN),
 	FOREIGN KEY (user_id) REFERENCES user_account(user_id)
 );
---Important that ownership triggers on purchase
 
 CREATE TABLE registered_at (
 	cart_id SERIAL PRIMARY KEY,
@@ -109,7 +109,7 @@ CREATE TABLE registered_at (
 	FOREIGN KEY (billing_id) REFERENCES billing(billing_id),
 	FOREIGN KEY (address_id) REFERENCES address(address_id),
 	CONSTRAINT user_billing_unique UNIQUE (bookstore_id, user_id)
-);--doesnt violate 3NF because user_id, bookstore_id is a candidate key 
+);
 
 CREATE TABLE book_in_cart (
 	ISBN bigint,
@@ -123,7 +123,7 @@ CREATE TABLE book_in_cart (
 CREATE TABLE order_info(
 	order_id SERIAL PRIMARY KEY,
 	curr_location varchar(25) NOT NULL default ('Unknown'),
-	eta date NOT NULL, --CAST (CAST(CAST('2022-' as varChar(5)) + CAST(extract(month from now()) as varChar(2)) + CAST('-01' as varChar(3)) as varChar(10)) as date),--fix eta
+	eta date NOT NULL,
 	order_date date NOT NULL default now(),
 	user_id int NOT NULL,
 	bookstore_id int NOT NULL,
@@ -133,9 +133,7 @@ CREATE TABLE order_info(
 	FOREIGN KEY (bookstore_id) REFERENCES bookstore(bookstore_id),
 	FOREIGN KEY (billing_id) REFERENCES billing(billing_id),
 	FOREIGN KEY (address_id) REFERENCES address(address_id)
-	-- CONSTRAINT is_valid_date CHECK (order_date == now())
-	-- CONSTRAINT is_valid_eta CHECK (eta >= now() and eta <= DATEADD(month, 2, now()))
-);--constraint: Must be a registration table value with user in bookstore
+);
 
 CREATE TABLE book_in_order (
 	ISBN bigint,
@@ -145,24 +143,3 @@ CREATE TABLE book_in_order (
 	FOREIGN KEY (ISBN) REFERENCES book(ISBN),
 	FOREIGN KEY (order_id) REFERENCES order_info(order_id)
 );
-
--- 1: 9780385660075
--- 2: 9780143054405
--- 3: 9780143188520
--- 4: 9781398806436
--- 5: 9781399810723
--- 6: 9781788282406
--- 7: 9781788282437
--- 8: 9781788280587
--- 9: 9780060837020
--- 10: 9780375718946
--- 11: 9780385690713
--- 12: 9781400079278
--- 13: 9780375704024
--- 14: 9780575079755
--- 15: 9780060934347
--- 16: 9781847493729
--- 17: 9780063213210
--- 18: 9780441172719
--- 19: 9780593201732
--- 20: 9780593201749
