@@ -1,3 +1,4 @@
+--this file reads data into this data base
 --STORE ADDRESSES
 INSERT INTO postal(postal_code, region, city)
 VALUES ('K2H 5B6', 'Ontario', 'Ottawa');
